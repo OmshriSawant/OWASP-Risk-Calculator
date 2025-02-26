@@ -1,0 +1,252 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWASP Risk Rating Calculator</title>
+    <link rel="stylesheet" href="C:\owasp_risk_rating_calculator-main\styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>OWASP Risk Rating Calculator</h1>
+        <hr>
+        <form id="riskForm">
+            <!-- Likelihood Factors -->
+            <h2 style="text-align: center;">Likelihood Factors</h2>
+
+            <!-- Threat Agent Factors -->
+            <h3>Threat Agent Factors</h3>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="skillLevel">Skill Level:</label>
+                    <select id="skillLevel">
+                        <option value="1">1 - No technical skills</option>
+                        <option value="3">3 - Some technical skills</option>
+                        <option value="5">5 - Advanced computer user</option>
+                        <option value="6">6 - Network and programming skills</option>
+                        <option value="9">9 - Security penetration skills</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="motive">Motive:</label>
+                    <select id="motive">
+                        <option value="1">1 - Low or no reward</option>
+                        <option value="4">4 - Possible reward</option>
+                        <option value="9">9 - High reward</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="opportunity">Opportunity:</label>
+                    <select id="opportunity">
+                        <option value="0">0 - Full access or expensive resources required</option>
+                        <option value="4">4 - Special access or resources required</option>
+                        <option value="7">7 - Some access or resources required</option>
+                        <option value="9">9 - No access or resources required</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="size">Size:</label>
+                    <select id="size">
+                        <option value="2">2 - Developers/System administrators</option>
+                        <option value="4">4 - Intranet users</option>
+                        <option value="5">5 - Partners</option>
+                        <option value="6">6 - Authenticated users</option>
+                        <option value="9">9 - Anonymous Internet users</option>
+                    </select>
+                </div>
+            </div>
+            <div id="threatAgentSeverity" class="severity-result"></div>
+
+            <!-- Vulnerability Factors -->
+            <h3>Vulnerability Factors</h3>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="easeOfDiscovery">Ease of Discovery:</label>
+                    <select id="easeOfDiscovery">
+                        <option value="1">1 - Practically impossible</option>
+                        <option value="3">3 - Difficult</option>
+                        <option value="7">7 - Easy</option>
+                        <option value="9">9 - Automated tools available</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="easeOfExploit">Ease of Exploit:</label>
+                    <select id="easeOfExploit">
+                        <option value="1">1 - Theoretical</option>
+                        <option value="3">3 - Difficult</option>
+                        <option value="5">5 - Easy</option>
+                        <option value="9">9 - Automated tools available</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="awareness">Awareness:</label>
+                    <select id="awareness">
+                        <option value="1">1 - Unknown</option>
+                        <option value="4">4 - Hidden</option>
+                        <option value="6">6 - Obvious</option>
+                        <option value="9">9 - Public knowledge</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="intrusionDetection">Intrusion Detection:</label>
+                    <select id="intrusionDetection">
+                        <option value="1">1 - Active detection in application</option>
+                        <option value="3">3 - Logged and reviewed</option>
+                        <option value="8">8 - Logged without review</option>
+                        <option value="9">9 - Not logged</option>
+                    </select>
+                </div>
+            </div>
+            <div id="vulnerabilitySeverity" class="severity-result"></div>
+
+            <hr>
+      
+            <!-- Impact Factors -->
+            <h2 style="text-align: center;">Impact Factors</h2>
+
+            <!-- Technical Impact Factors -->
+            <h3>Technical Impact Factors</h3>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="lossConfidentiality">Loss of Confidentiality:</label>
+                    <select id="lossConfidentiality">
+                        <option value="2">2 - Minimal non-sensitive data disclosed</option>
+                        <option value="6">6 - Extensive non-sensitive data disclosed or minimal critical data disclosed</option>
+                        <option value="7">7 - Extensive critical data disclosed</option>
+                        <option value="9">9 - All data disclosed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lossIntegrity">Loss of Integrity:</label>
+                    <select id="lossIntegrity">
+                        <option value="1">1 - Minimal slightly corrupt data</option>
+                        <option value="3">3 - Minimal seriously corrupt data</option>
+                        <option value="5">5 - Extensive slightly corrupt data</option>
+                        <option value="7">7 - Extensive seriously corrupt data</option>
+                        <option value="9">9 - All data totally corrupt</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lossAvailability">Loss of Availability:</label>
+                    <select id="lossAvailability">
+                        <option value="1">1 - Minimal secondary services interrupted</option>
+                        <option value="5">5 - Minimal primary services interrupted or extensive secondary services interrupted</option>
+                        <option value="7">7 - Extensive primary services interrupted</option>
+                        <option value="9">9 - All services completely lost</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lossAccountability">Loss of Accountability:</label>
+                    <select id="lossAccountability">
+                        <option value="1">1 - Fully traceable</option>
+                        <option value="7">7 - Possibly traceable</option>
+                        <option value="9">9 - Completely anonymous</option>
+                    </select>
+                </div>
+            </div>
+            <div id="technicalImpactSeverity" class="severity-result"></div>
+
+            <!-- Business Impact Factors -->
+            <h3>Business Impact Factors</h3>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="financialDamage">Financial Damage:</label>
+                    <select id="financialDamage">
+                        <option value="0">0 - No information available</option>
+                        <option value="1">1 - Less than the cost to fix</option>
+                        <option value="3">3 - Minor effect on annual profit</option>
+                        <option value="7">7 - Significant effect on annual profit</option>
+                        <option value="9">9 - Bankruptcy</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reputationDamage">Reputation Damage:</label>
+                    <select id="reputationDamage">
+                        <option value="0">0 - No information available</option>
+                        <option value="1">1 - Minimal damage</option>
+                        <option value="4">4 - Loss of major accounts</option>
+                        <option value="5">5 - Loss of goodwill</option>
+                        <option value="9">9 - Brand damage</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nonCompliance">Non-Compliance:</label>
+                    <select id="nonCompliance">
+                        <option value="0">0 - No information available</option>
+                        <option value="2">2 - Minor violation</option>
+                        <option value="5">5 - Clear violation</option>
+                        <option value="7">7 - High profile violation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="privacyViolation">Privacy Violation:</label>
+                    <select id="privacyViolation">
+                        <option value="0">0 - No information available</option>
+                        <option value="3">3 - One individual</option>
+                        <option value="5">5 - Hundreds of people</option>
+                        <option value="7">7 - Thousands of people</option>
+                        <option value="9">9 - Millions of people</option>
+                    </select>
+                </div>
+            </div>
+            <div id="businessImpactSeverity" class="severity-result"></div>
+            <!-- New: Risk Context Section -->
+            <h3>Risk Context</h3>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="riskCategory">Risk Category:</label>
+                    <select id="riskCategory">
+                        <option value="application">Application Security</option>
+                        <option value="network">Network Security</option>
+                        <option value="infrastructure">Infrastructure</option>
+                        <option value="data">Data Protection</option>
+                        <option value="compliance">Regulatory Compliance</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="threatType">Threat Type:</label>
+                    <select id="threatType">
+                        <option value="injection">Injection</option>
+                        <option value="authentication">Authentication Failure</option>
+                        <option value="sensitiveData">Sensitive Data Exposure</option>
+                        <option value="xml">XML External Entities (XXE)</option>
+                        <option value="access">Broken Access Control</option>
+                        <option value="security">Security Misconfiguration</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Calculation Controls -->
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="confidenceLevel">Confidence Level:</label>
+                    <select id="confidenceLevel">
+                        <option value="0.5">Low (50%)</option>
+                        <option value="0.7" selected>Medium (70%)</option>
+                        <option value="0.9">High (90%)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Calculate Button -->
+            <button type="button" onclick="calculateRisk()">Analyze Risk</button>
+        </form>
+
+        <!-- Detailed Results Section -->
+        <div id="detailedResults" class="hidden">
+            <h2>Detailed Risk Assessment</h2>
+            <div id="severityBreakdown"></div>
+            <div id="recommendationsBox" class="result-box"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Risk Rating Calculator based on 
+        <a href="https://owasp.org/www-community/OWASP_Risk_Rating_Methodology" target="_blank">OWASP Risk Rating Methodology</a> || Copyright @ <a href="https://www.linkedin.com/in/omshrisawant/" target="_blank">Omshri Sawant</a>
+    </div>
+
+    <script src="C:\owasp_risk_rating_calculator-main\script.js"></script>
+</body>
+</html>
